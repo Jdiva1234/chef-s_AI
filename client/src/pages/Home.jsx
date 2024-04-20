@@ -1,5 +1,13 @@
 import NavBar from "../components/navBar/navbar";
 import InputBox from "../components/input/input";
+import axios from "axios";
+
+const apiCall = () => {
+  axios.get("http://localhost:8080").then((data) => {
+    //this console.log will be in our frontend console
+    console.log(data);
+  });
+};
 
 function HomePage() {
   return (
@@ -11,6 +19,7 @@ function HomePage() {
         </h1>
         <br />
         <InputBox placeholder="Type your ingredients here..." />
+        <button onClick={apiCall}>Enter</button>
       </div>
     </>
   );
