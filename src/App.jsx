@@ -11,8 +11,8 @@ function App() {
       <Routes>
         {/* Landing Page */}
         <Route path="/" element={<Home />} />
-        <Route path="explore" element={<Explore />} />
-        <Route path="surprise" element={<Surprise />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/surprise" element={<Surprise />} />
         <Route path="*" element={<Nopages />} />
       </Routes>
     </BrowserRouter>
