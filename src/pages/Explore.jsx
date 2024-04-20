@@ -1,10 +1,14 @@
 import NavBar from "../components/navBar/navbar";
+import InputBox from "../components/input/input";
 
 function ExplorePage() {
   return (
     <>
       <NavBar />
-      <h1>This is the Explore page </h1>
+      <div className="container">
+        <br />
+        <InputBox placeholder={"Explore new theme..."} />
+      </div>
     </>
   );
 }

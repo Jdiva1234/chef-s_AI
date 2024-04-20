@@ -1,0 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* the width and height of an element is only calculated based on its content */
+}
+
+.container {
+  margin: 20px;
+  padding: 10px;
+}

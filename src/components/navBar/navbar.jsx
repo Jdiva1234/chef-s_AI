@@ -3,9 +3,20 @@ import "./navbar.css";
 function NavBar() {
   return (
     <nav className="nav">
-      <Link to="/">Home</Link>
-      <Link to="/surprise">Surprise Me</Link>
-      <Link to="/explore">Explore</Link>
+      <div className="logo ">
+        <h1>Chefs AI</h1>
+      </div>
+      <div className="links">
+        <Link className="nav-link" to="/">
+          Home
+        </Link>
+        <Link className="nav-link" to="/surprise">
+          Surprise Me
+        </Link>
+        <Link className="nav-link" to="/explore">
+          Explore
+        </Link>
+      </div>
     </nav>
   );
 }

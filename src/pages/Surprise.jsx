@@ -1,10 +1,14 @@
 import NavBar from "../components/navBar/navbar";
+import InputBox from "../components/input/input";
 
 function SurprisePage() {
   return (
     <>
       <NavBar />
-      <h1>This is the Surprise page </h1>
+      <div className="container">
+        <br />
+        <InputBox placeholder={"Type your preference here..."} />
+      </div>
     </>
   );
 }
