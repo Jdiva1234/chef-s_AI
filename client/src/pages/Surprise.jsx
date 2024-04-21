@@ -1,5 +1,6 @@
 import NavBar from "../components/navBar/navbar";
 import InputBox from "../components/input/input";
+import Footer from "../components/Footer/footer";
 
 function SurprisePage() {
   return (
@@ -12,6 +13,7 @@ function SurprisePage() {
         <br />
         <InputBox placeholder={"Type your preference here..."} />
       </div>
+      <Footer />
     </>
   );
 }

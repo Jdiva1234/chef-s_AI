@@ -1,5 +1,6 @@
 import NavBar from "../components/navBar/navbar";
 import InputBox from "../components/input/input";
+import Footer from "../components/Footer/footer";
 import axios from "axios";
 
 const apiCall = () => {
@@ -21,6 +22,7 @@ function HomePage() {
         <InputBox placeholder="Type your ingredients here..." />
         <button onClick={apiCall}>Enter</button>
       </div>
+      <Footer />
     </>
   );
 }
