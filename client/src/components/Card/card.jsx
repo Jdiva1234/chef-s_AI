@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Card,
   CardHeader,
@@ -6,23 +7,36 @@ import {
   Typography,
   Tooltip,
 } from '@material-tailwind/react';
-import React from 'react';
+import CardPlaceholderSkeleton from '../CardPlaceholderSkeleton/card-placeholder-skeleton';
+import useImageSource from '../../hooks/use-image-src';
 
-interface FoodCardProps {
-  imageSrc: string;
-  imageAlt: string;
-}
+FoodCard.propTypes = {
+  imageSrc: PropTypes.string.isRequired,
+  imageAlt: PropTypes.string.isRequired,
+};
 
-export function FoodCard({ imageSrc, imageAlt }: FoodCardProps) {
+function FoodCard({ imageSrc, imageAlt }) {
+  const { checkingImageValid, isImageBroken } = useImageSource(imageSrc);
+
   return (
     <Card className="w-full">
       <CardHeader floated={false} className="h-80">
-        <img
-          src={imageSrc}
-          alt={imageAlt}
-          className="w-full h-full bg-no-repeat bg-contain"
-        />
+        {/* Checking if the image is valid and displaying a skeleton in that time */}
+        {checkingImageValid && <CardPlaceholderSkeleton />}
+        {/* If the image is not broken */}
+        {!isImageBroken ? (
+          <div>
+            <img
+              src={imageSrc}
+              alt={imageAlt}
+              className="w-full h-full bg-no-repeat bg-contain"
+            />
+          </div>
+        ) : (
+          <CardPlaceholderSkeleton />
+        )}
       </CardHeader>
+
       <CardBody className="text-center">
         <Typography variant="h4" color="blue-gray" className="mb-2">
           {imageAlt}
@@ -66,3 +80,4 @@ export function FoodCard({ imageSrc, imageAlt }: FoodCardProps) {
     </Card>
   );
 }
+export default FoodCard;
