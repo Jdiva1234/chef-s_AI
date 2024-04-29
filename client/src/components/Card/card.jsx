@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from '@material-tailwind/react';
 import CardPlaceholderSkeleton from '../CardPlaceholderSkeleton/card-placeholder-skeleton';
-import useImageSource from '../../hooks/use-image-src';
+import useImageSource from '../../hooks/useImageSrc';
 
 FoodCard.propTypes = {
   imageSrc: PropTypes.string.isRequired,

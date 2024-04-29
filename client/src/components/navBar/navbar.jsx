@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import { useState, useEffect } from 'react';
 import {
   Navbar,
   Collapse,
@@ -55,12 +55,12 @@ function NavList() {
 }
 
 export default function NavbarSimple() {
-  const [openNav, setOpenNav] = React.useState(false);
+  const [openNav, setOpenNav] = useState(false);
 
   const handleWindowResize = () =>
     window.innerWidth >= 960 && setOpenNav(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('resize', handleWindowResize);
 
     return () => {

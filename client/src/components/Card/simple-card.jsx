@@ -16,10 +16,10 @@ function SimpleCard({ nameOfMeal, description, ingredients, steps }) {
         <Typography variant="h5" color="blue-gray" className="mb-2">
           {nameOfMeal}
         </Typography>
-        <Typography variant="body2" className="text-blue-gray-500">
+        <Typography variant="paragraph" className="text-blue-gray-500">
           {description}
         </Typography>
-        <Typography variant="subtitle2" className="mt-4 mb-2 font-bold">
+        <Typography variant="lead" className="mt-4 mb-2 font-bold">
           Ingredients:
         </Typography>
         <ul className="list-disc ml-4">
@@ -27,7 +27,7 @@ function SimpleCard({ nameOfMeal, description, ingredients, steps }) {
             <li key={index}>{ingredient}</li>
           ))}
         </ul>
-        <Typography variant="subtitle2" className="mt-4 mb-2 font-bold">
+        <Typography variant="lead" className="mt-4 mb-2 font-bold">
           Cooking Steps:
         </Typography>
         <ol className="list-decimal ml-4">

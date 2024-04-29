@@ -5,10 +5,12 @@ import Explore from './pages/Explore';
 import Surprise from './pages/Surprise';
 import Nopages from './pages/Nopages';
 import Layout from './components/Layout/layout';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster />
       <Routes>
         <Route
           path="/"
