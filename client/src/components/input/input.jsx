@@ -1,9 +1,15 @@
-import "./input.css";
+import './input.css';
 
-function input({ placeholder }) {
+function input({ placeholder, value, onChange }) {
   return (
     <div className="input_container">
-      <input type="text" placeholder={placeholder} />
+      <input
+        type="text"
+        size={50}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 }

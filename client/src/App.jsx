@@ -1,19 +1,49 @@
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Explore from "./pages/Explore";
-import Surprise from "./pages/Surprise";
-import Nopages from "./pages/Nopages";
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Explore from './pages/Explore';
+import Surprise from './pages/Surprise';
+import Nopages from './pages/Nopages';
+import Layout from './components/Layout/layout';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <BrowserRouter>
+      <Toaster />
       <Routes>
-        {/* Landing Page */}
-        <Route path="/" element={<Home />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/surprise" element={<Surprise />} />
-        <Route path="*" element={<Nopages />} />
+        <Route
+          path="/"
+          element={
+            <Layout title="ChefAI | Home">
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/explore"
+          element={
+            <Layout title="ChefAI | Explore">
+              <Explore />
+            </Layout>
+          }
+        />
+        <Route
+          path="/surprise"
+          element={
+            <Layout title="ChefAI | Surprise">
+              <Surprise />
+            </Layout>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Layout title="ChefAI | 404:Page Not Found">
+              <Nopages />
+            </Layout>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
