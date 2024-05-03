@@ -8,11 +8,13 @@ import ButtonLoading from '../components/ButtonLoading/button-loading';
 import useFetchImages from '../hooks/useFetchImages';
 import useGenerateMeals from '../hooks/useGenerateMeals';
 
+// TODO:Fix refresh bug
 function HomePage() {
   const { imageData, isLoading } = useFetchImages();
   const [ingredients, setIngredients] = useState('');
   const { generateMeals, meals, isGeneratingMeals } =
     useGenerateMeals(ingredients);
+
   const handleInputChange = (event) => {
     setIngredients(event.target.value); // Update the ingredients state with input value
   };
@@ -25,16 +27,16 @@ function HomePage() {
   }
   return (
     <div className="container">
-      <h1 className="flex justify-center">
+      <Typography as="h1" className="flex justify-center">
         Welcome to Chefs AI where cooking is made simple{' '}
-      </h1>
+      </Typography>
       <br />
       <InputBox
         placeholder="Type your ingredients here..."
         value={ingredients}
         onChange={handleInputChange}
       />
-      <div className="mt-2">
+      <div className="mt-8">
         <ButtonLoading
           text="Generate Meals"
           loading={isGeneratingMeals}
@@ -42,8 +44,8 @@ function HomePage() {
         ></ButtonLoading>
       </div>
 
-      <div className="mt-20">
-        <div className="grid grid-cols-3 gap-8">
+      <div className="mt-10">
+        <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           {meals.map((meal, i) => (
             <div key={i}>
               <SimpleCard
@@ -58,11 +60,11 @@ function HomePage() {
       </div>
       {meals.length === 0 && (
         <>
-          <Typography variant="h3" className="m-8">
+          <Typography as="h3" className="mb-2">
             Hungry? here are some pictures to wet your appetite....
           </Typography>
 
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
             {imageData.map((image, i) => (
               <div key={i}>
                 <FoodCard imageSrc={image.url} imageAlt={image.name} />

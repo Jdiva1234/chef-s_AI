@@ -1,17 +1,17 @@
 import Footer from '../../components/Footer/footer';
 import PropTypes from 'prop-types';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
-import Navbar from '../navBar/navbar';
+import { ComplexNavbar } from '../navBar/complexNavbar';
 
 const Layout = ({ children, title }) => {
   useDocumentTitle(title);
 
   return (
-    <div>
-      <Navbar />
+    <>
+      <ComplexNavbar />
       <main>{children}</main>
       <Footer></Footer>
-    </div>
+    </>
   );
 };
 

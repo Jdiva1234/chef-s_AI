@@ -1,7 +1,10 @@
+import { Typography } from '@material-tailwind/react';
 function NoPage() {
   return (
     <>
-      <h1> Sorry, Page not found </h1>
+      <Typography className="flex items-center justify-center mt-8">
+        Sorry, Page not found
+      </Typography>
     </>
   );
 }
