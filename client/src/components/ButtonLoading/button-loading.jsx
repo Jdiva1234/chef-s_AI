@@ -1,8 +1,8 @@
 import { Button } from '@material-tailwind/react';
 
-function ButtonLoading({ loading, text, onClick }) {
+function ButtonLoading({ loading, text, onClick, className }) {
   return (
-    <Button className="rounded-full" loading={loading} onClick={onClick}>
+    <Button className={className} loading={loading} onClick={onClick}>
       {text}
     </Button>
   );

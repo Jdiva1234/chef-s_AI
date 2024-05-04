@@ -1,5 +1,4 @@
 import InputBox from '../components/input/input';
-import Footer from '../components/Footer/footer';
 
 function ExplorePage() {
   return (
@@ -11,8 +10,6 @@ function ExplorePage() {
         <br />
         <InputBox placeholder={'Explore new theme...'} />
       </div>
-
-      <Footer />
     </>
   );
 }
