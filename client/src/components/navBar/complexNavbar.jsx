@@ -22,6 +22,8 @@ import {
   HomeIcon,
 } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { supabase } from '../Authentication/supabaseClient';
 
 // profile menu component
 const profileMenuItems = [
@@ -43,6 +45,13 @@ function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast.error('Error signing out:', error);
+    } else toast.success('Signing you out!');
+  };
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -73,7 +82,7 @@ function ProfileMenu() {
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={isLastItem ? signOut : closeMenu} // Call signOut when "Sign Out" is clicked
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
