@@ -1,8 +1,18 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+const withMT = require('@material-tailwind/react/utils/withMT');
+
+module.exports = withMT({
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        lightGrey: 'rgb(220, 219, 205)',
+        coral: '#FF7F50',
+      },
+      animation: {
+        vibrate: 'vibrate 0.9s linear infinite',
+      },
+    },
   },
   plugins: [],
-};
+});
