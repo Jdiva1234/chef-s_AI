@@ -28,7 +28,7 @@ npm install
 3. Start the server:
 
 ```sh
-npm start
+node index.js
 ```
 
 The server will start on port 8080.
