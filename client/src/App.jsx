@@ -38,7 +38,7 @@ function App() {
           path="/"
           element={
             <Layout title="ChefAI | Home">
-              {!session ? <Auth /> : <Home session={session} />}
+              <Home />
             </Layout>
           }
         />
@@ -47,7 +47,6 @@ function App() {
           element={
             <Layout title="ChefAI | Explore">
               {!session ? <Auth /> : <Explore session={session} />}
-
               <Explore />
             </Layout>
           }

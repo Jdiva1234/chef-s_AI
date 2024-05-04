@@ -3,7 +3,7 @@ import cors from 'cors';
 import OpenAI from 'openai';
 const app = express();
 const openai = new OpenAI({
-  apiKey: 'sk-proj-GuUl3iiFcmJ6HvBV65RgT3BlbkFJ1ugiGHSmrPG14yVbhuJ4',
+  apiKey: 'insert API Key',
 });
 
 app.use(cors());
@@ -16,11 +16,29 @@ app.listen(8080, () => {
   console.log('server listening on port 8080');
 });
 
+let categories = [
+  'biryani',
+  'burger',
+  'dessert',
+  'dosa',
+  'idly',
+  'pasta',
+  'pizza',
+  'rice',
+  'samosa',
+];
+
 // Define a route handler for GET requests to the '/food-image' path
 app.get('/food-image', async (req, res) => {
   try {
-    // Make a request to the Foodish API
-    const response = await fetch('https://foodish-api.com/api/');
+    // Select a category from the front of the queue
+    const category = categories.shift();
+    // Add the category back to the end of the queue
+    categories.push(category);
+
+    const response = await fetch(
+      `https://foodish-api.com/api/images/${category}/`
+    );
     // Parse the response as JSON
     const data = await response.json();
     // Send the data back to the client(frontend)

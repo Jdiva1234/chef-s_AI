@@ -9,6 +9,9 @@ module.exports = withMT({
         lightGrey: 'rgb(220, 219, 205)',
         coral: '#FF7F50',
       },
+      animation: {
+        vibrate: 'vibrate 0.9s linear infinite',
+      },
     },
   },
   plugins: [],
