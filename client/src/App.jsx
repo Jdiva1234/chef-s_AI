@@ -47,7 +47,6 @@ function App() {
           element={
             <Layout title="ChefAI | Explore">
               {!session ? <Auth /> : <Explore session={session} />}
-              <Explore />
             </Layout>
           }
         />
