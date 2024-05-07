@@ -3,10 +3,11 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../components/Authentication/supabaseClient';
 import axios from 'axios';
 import { Spinner } from '@material-tailwind/react';
+const backendUrl = import.meta.env.BACKEND_URL;
 
 async function getSurpriseRecipes(cuisine, diet) {
   try {
-    const response = await axios.post('http://localhost:8080/surprise-me', {
+    const response = await axios.post(`${backendUrl}/surprise-me`, {
       cuisine,
       diet,
     });

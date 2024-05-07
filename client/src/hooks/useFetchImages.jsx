@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+const backendUrl = import.meta.env.BACKEND_URL;
 
 const useFetchImages = () => {
   const [imageData, setImageData] = useState([]);
@@ -11,7 +12,7 @@ const useFetchImages = () => {
       try {
         const promises = [];
         for (let i = 0; i < 6; i++) {
-          promises.push(axios.get('http://localhost:8080/food-image'));
+          promises.push(axios.get(`${backendUrl}/food-image`));
         }
         const responses = await Promise.all(promises);
         const images = responses.map((response) => {

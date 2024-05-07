@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+const backendUrl = import.meta.env.BACKEND_URL;
 
 const useGenerateMeals = (ingredients) => {
   const [meals, setMeals] = useState([]);
@@ -10,7 +11,7 @@ const useGenerateMeals = (ingredients) => {
     setIsGeneratingMeals(true);
     try {
       const response = await axios.get(
-        `http://localhost:8080/generate-food?ingredients=${ingredients}`
+        `${backendUrl}/generate-food?ingredients=${ingredients}`
       );
       setMeals(response.data);
     } catch (error) {
