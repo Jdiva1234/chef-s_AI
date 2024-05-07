@@ -4,7 +4,7 @@ import OpenAI from 'openai';
 const app = express();
 app.use(express.json());
 const openai = new OpenAI({
-  apiKey: 'sk-proj-Qn2W3698JAURnNjhyoznT3BlbkFJZREPwSie4g2movr59woV',
+  apiKey: '',
 });
 
 app.use(cors());
