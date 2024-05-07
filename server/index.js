@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import OpenAI from 'openai';
+import 'dotenv/config';
+
 const app = express();
 app.use(express.json());
 const openai = new OpenAI({
-  apiKey: '',
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 app.use(cors());
