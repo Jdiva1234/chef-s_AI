@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   Navbar,
   MobileNav,
@@ -14,9 +16,7 @@ import {
 import {
   FaceSmileIcon,
   UserCircleIcon,
-  CodeBracketSquareIcon,
   ChevronDownIcon,
-  Cog6ToothIcon,
   PowerIcon,
   Bars2Icon,
   HomeIcon,
@@ -30,14 +30,12 @@ const profileMenuItems = [
   {
     label: 'My Profile',
     icon: UserCircleIcon,
-  },
-  {
-    label: 'Edit Profile',
-    icon: Cog6ToothIcon,
+    link: '/my-profile',
   },
   {
     label: 'Sign Out',
     icon: PowerIcon,
+    link: '/',
   },
 ];
 
@@ -50,7 +48,10 @@ function ProfileMenu() {
     const { error } = await supabase.auth.signOut();
     if (error) {
       toast.error('Error signing out:', error);
-    } else toast.success('Signing you out!');
+    } else {
+      localStorage.clear(); // clear local storage
+      toast.success('Signing you out!');
+    }
   };
 
   return (
@@ -77,31 +78,33 @@ function ProfileMenu() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label, icon }, key) => {
+        {profileMenuItems.map(({ label, icon, link }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
-            <MenuItem
-              key={label}
-              onClick={isLastItem ? signOut : closeMenu} // Call signOut when "Sign Out" is clicked
-              className={`flex items-center gap-2 rounded ${
-                isLastItem
-                  ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
-                  : ''
-              }`}
-            >
-              {React.createElement(icon, {
-                className: `h-4 w-4 ${isLastItem ? 'text-red-500' : ''}`,
-                strokeWidth: 2,
-              })}
-              <Typography
-                as="span"
-                variant="small"
-                className="font-normal"
-                color={isLastItem ? 'red' : 'inherit'}
+            <Link to={link || '#'} key={label}>
+              <MenuItem
+                key={label}
+                onClick={isLastItem ? signOut : closeMenu} // Call signOut when "Sign Out" is clicked
+                className={`flex items-center gap-2 rounded ${
+                  isLastItem
+                    ? 'hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10'
+                    : ''
+                }`}
               >
-                {label}
-              </Typography>
-            </MenuItem>
+                {React.createElement(icon, {
+                  className: `h-4 w-4 ${isLastItem ? 'text-red-500' : ''}`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  as="span"
+                  variant="small"
+                  className="font-normal"
+                  color={isLastItem ? 'red' : 'inherit'}
+                >
+                  {label}
+                </Typography>
+              </MenuItem>
+            </Link>
           );
         })}
       </MenuList>
@@ -120,11 +123,6 @@ const navListItems = [
     label: 'Surprise Me',
     icon: FaceSmileIcon,
     href: '/surprise',
-  },
-  {
-    label: 'Explore',
-    icon: CodeBracketSquareIcon,
-    href: '/explore',
   },
 ];
 
@@ -149,6 +147,11 @@ function NavList() {
 
 export function ComplexNavbar() {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
+  const navigate = useNavigate();
+
+  function handleButtonChange() {
+    navigate('/login');
+  }
 
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
@@ -178,7 +181,7 @@ export function ComplexNavbar() {
           <Bars2Icon className="h-6 w-6" />
         </IconButton>
 
-        <Button size="sm" variant="text">
+        <Button size="sm" variant="text" onClick={handleButtonChange}>
           <span>Log In</span>
         </Button>
         <ProfileMenu />

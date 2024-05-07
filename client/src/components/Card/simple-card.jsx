@@ -23,17 +23,23 @@ function SimpleCard({ nameOfMeal, description, ingredients, steps }) {
           Ingredients:
         </Typography>
         <ul className="list-disc ml-4">
-          {ingredients.map((ingredient, index) => (
-            <li key={index}>{ingredient}</li>
-          ))}
+          {Array.isArray(ingredients) ? (
+            ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))
+          ) : (
+            <li>No ingredients available</li> // Fallback message
+          )}
         </ul>
         <Typography variant="lead" className="mt-4 mb-2 font-bold">
           Cooking Steps:
         </Typography>
         <ol className="list-decimal ml-4">
-          {steps.map((step, index) => (
-            <li key={index}>{step}</li>
-          ))}
+          {Array.isArray(steps) ? (
+            steps.map((step, index) => <li key={index}>{step}</li>)
+          ) : (
+            <li>No cooking steps available</li> // Fallback message
+          )}
         </ol>
       </CardBody>
     </Card>

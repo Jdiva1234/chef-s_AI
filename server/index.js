@@ -2,8 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import OpenAI from 'openai';
 const app = express();
+app.use(express.json());
 const openai = new OpenAI({
-  apiKey: 'insert API Key',
+  apiKey: '',
 });
 
 app.use(cors());
@@ -81,5 +82,50 @@ app.get('/generate-food', async (req, res) => {
   } catch (error) {
     console.error('Error calling OpenAI:', error);
     res.status(500).json({ error: 'Failed to generate meals' });
+  }
+});
+
+app.post('/surprise-me', async (req, res) => {
+  // Ensure there are cuisine and dietary requirements provided in the query string
+  console.log(req.body.cuisine);
+  console.log(req.body.diet);
+  if (!req.body.cuisine || !req.body.diet) {
+    return res
+      .status(400)
+      .json({ error: 'No cuisine or dietary requirements provided' });
+  }
+
+  // Get the cuisine and dietary requirements from the body
+  const cuisine = req.body.cuisine;
+  const diet = req.body.diet;
+
+  // Create a natural language prompt for the OpenAI API
+  const prompt = `Given that the user prefers ${cuisine} cuisine and follows a ${diet} diet, suggest three novel and unexpected recipes that they may not have considered on their own, and provide detailed steps for cooking each meal.`;
+
+  try {
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      response_format: { type: 'json_object' },
+      messages: [
+        {
+          role: 'system',
+          content: 'You are a helpful assistant  designed to output JSON.',
+        },
+        { role: 'user', content: prompt },
+      ],
+    });
+
+    // Extract the relevant data from the completion
+    const surpriseRecipes = JSON.parse(
+      completion.choices[0].message.content
+    ).recipes;
+
+    console.log(surpriseRecipes);
+
+    // Send the surprise recipes back to the client
+    res.json(surpriseRecipes);
+  } catch (error) {
+    console.error('Error calling OpenAI:', error);
+    res.status(500).json({ error: 'Failed to generate surprise recipes' });
   }
 });
