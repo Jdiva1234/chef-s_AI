@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../components/Authentication/supabaseClient';
 import axios from 'axios';
 import { Spinner } from '@material-tailwind/react';
-const backendUrl = import.meta.env.BACKEND_URL;
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 async function getSurpriseRecipes(cuisine, diet) {
   try {
