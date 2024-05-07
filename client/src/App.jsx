@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Explore from './pages/Explore';
 import Surprise from './pages/Surprise';
 import Nopages from './pages/Nopages';
 import Layout from './components/Layout/layout';
@@ -9,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import { useState, useEffect } from 'react';
 import Auth from './components/Authentication/auth';
 import { supabase } from './components/Authentication/supabaseClient';
+import Profile from './components/Profile/Profile';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -29,7 +29,6 @@ function App() {
       setSession(session);
     });
   }, []);
-
   return (
     <BrowserRouter>
       <Toaster position={isMobile ? 'bottom-center' : 'top-right'} />{' '}
@@ -42,11 +41,12 @@ function App() {
             </Layout>
           }
         />
+
         <Route
-          path="/explore"
+          path="/my-profile"
           element={
-            <Layout title="ChefAI | Explore">
-              {!session ? <Auth /> : <Explore session={session} />}
+            <Layout title="ChefAI | My Profile">
+              {!session ? <Auth /> : <Profile session={session} />}
             </Layout>
           }
         />
@@ -57,6 +57,10 @@ function App() {
               {!session ? <Auth /> : <Surprise session={session} />}
             </Layout>
           }
+        />
+        <Route
+          path="/login"
+          element={<Layout title="ChefAI | Login">{<Auth />}</Layout>}
         />
         <Route
           path="*"

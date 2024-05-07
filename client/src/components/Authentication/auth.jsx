@@ -1,37 +1,53 @@
 import { useState } from 'react';
-import { supabase } from './supabaseClient';
 import { Typography, Input } from '@material-tailwind/react';
 import ButtonLoading from '../ButtonLoading/button-loading';
-import toast from 'react-hot-toast';
+import useFormSubmission from '../../hooks/useFormSubmission';
+import Checkboxes from '../Checkboxes/CuisineCheckboxes';
+
+const cuisineObject = [
+  { label: 'African', value: 'African' },
+  { label: 'Mediterranean', value: 'Mediterranean' },
+  { label: 'Mexican', value: 'mexican' },
+  { label: 'Chinese', value: 'chinese' },
+];
+const dietsObject = [
+  { label: 'Vegetarian', value: 'vegetarian' },
+  { label: 'Vegan', value: 'vegan' },
+  { label: 'Gluten-free', value: 'gluten-free' },
+  { label: 'None', value: 'none' },
+  // Add more diets as needed
+];
 
 export default function Auth() {
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const [cuisines, setCuisines] = useState([]);
+  const [diets, setDiets] = useState([]);
+
+  const { loading, handleFormSubmit, isFormValid } = useFormSubmission(
+    email,
+    cuisines,
+    diets
+  );
+
+  // Checkbox change handlers
+  const handleCuisineChange = (event) => {
+    if (event.target.checked) {
+      setCuisines([...cuisines, event.target.value]);
+    } else {
+      setCuisines(cuisines.filter((cuisine) => cuisine !== event.target.value));
+    }
+  };
+
+  const handleDietChange = (event) => {
+    if (event.target.checked) {
+      setDiets([...diets, event.target.value]);
+    } else {
+      setDiets(diets.filter((diet) => diet !== event.target.value));
+    }
+  };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-  };
-
-  const handleLogin = async (event) => {
-    event.preventDefault();
-
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        shouldCreateUser: true,
-      },
-    });
-
-    if (error) {
-      toast.error(error.error_description || error.message);
-    } else {
-      toast('Good Job!', {
-        icon: '👏',
-      });
-      toast('Check your email for the login link!');
-    }
-    setLoading(false);
   };
 
   return (
@@ -58,18 +74,39 @@ export default function Auth() {
         </Typography>
 
         <Typography color="white" className="mt-1 text-xl ">
-          Sign in via magic link with your email below
+          Before we work our magic, lets get your preferences 🙈{' '}
         </Typography>
 
         <form
           className="mt-4 mb-2 w-80 max-w-screen-lg sm:w-96"
-          onSubmit={handleLogin}
+          onSubmit={handleFormSubmit}
         >
+          {!isFormValid && (
+            <Typography color="red" className="mb-2">
+              Please select at least one cuisine and one diet.
+            </Typography>
+          )}
+          <div className="mb-1 flex flex-col gap-6">
+            <Typography variant="h6" color="white" className="-mb-3">
+              Step 1: Choose Your Favorite Cuisines
+            </Typography>
+            <Checkboxes onChange={handleCuisineChange} items={cuisineObject} />
+          </div>
+
+          <div className="mb-1 flex flex-col gap-6">
+            <Typography variant="h6" color="white" className="-mb-3">
+              Step 2: Specify Your Dietary Preferences
+            </Typography>
+            <Checkboxes onChange={handleDietChange} items={dietsObject} />
+          </div>
+
           <div className="mb-1 flex flex-col gap-6">
             <Typography variant="h6" color="white" className="-mb-3">
               Your Email
             </Typography>
+
             <Input
+              required
               size="lg"
               placeholder="name@mail.com"
               onChange={handleEmailChange}
@@ -79,14 +116,11 @@ export default function Auth() {
               }}
             />
           </div>
-          <div>
-            <ButtonLoading
-              text="Log In"
-              loading={loading}
-              onClick={handleLogin}
-              className=" mt-4 w-full hover:bg-coral"
-            ></ButtonLoading>
-          </div>
+          <ButtonLoading
+            text="Continue"
+            loading={loading}
+            className="mt-4 w-full hover:bg-coral"
+          ></ButtonLoading>
         </form>
       </div>
     </div>
